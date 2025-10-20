@@ -1,0 +1,7 @@
+.consumer-bg {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+}
+.product-card img {
+    height: 200px;
+    object-fit: cover;
+}

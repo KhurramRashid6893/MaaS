@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="text-center my-5">
+    <h1 class="display-4 fw-bold" data-lang-key="welcomeTitle">Welcome to Millet as a Service (MaaS)</h1>
+    <p class="lead" data-lang-key="welcomeSubtitle">Connecting the Indian Millet Ecosystem from Farm to Table.</p>
+</div>
+
+<div class="row text-center g-4">
+    <!-- Farmer/SHG Card -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm role-card">
+            <div class="card-body">
+                <i class="fas fa-tractor fa-3x text-success mb-3"></i>
+                <h3 class="card-title" data-lang-key="farmerTitle">Farmer / SHG / FPO</h3>
+                <p class="card-text" data-lang-key="farmerDesc">List your produce, get market insights, and connect directly with buyers.</p>
+                <a href="/farmer" class="btn btn-success" data-lang-key="farmerBtn">Go to Farmer Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buyer/Processor Card -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm role-card">
+            <div class="card-body">
+                <i class="fas fa-industry fa-3x text-primary mb-3"></i>
+                <h3 class="card-title" data-lang-key="buyerTitle">Buyer / Processor</h3>
+                <p class="card-text" data-lang-key="buyerDesc">Find verified millet producers, check quality, and manage procurement.</p>
+                <a href="/buyer" class="btn btn-primary" data-lang-key="buyerBtn">Go to Buyer Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consumer Card -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm role-card">
+            <div class="card-body">
+                <i class="fas fa-shopping-cart fa-3x text-warning mb-3"></i>
+                <h3 class="card-title" data-lang-key="consumerTitle">Consumer</h3>
+                <p class="card-text" data-lang-key="consumerDesc">Discover millet products, learn about their health benefits, and buy online.</p>
+                <a href="/consumer" class="btn btn-warning" data-lang-key="consumerBtn">Go to Consumer Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

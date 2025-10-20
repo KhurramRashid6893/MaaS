@@ -1,0 +1,7 @@
+.farmer-bg {
+    background: linear-gradient(135deg, #28a745, #218838);
+}
+.produce-card img {
+    height: 200px;
+    object-fit: cover;
+}

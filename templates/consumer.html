@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="dashboard-title">
+    <h3><i class="fas fa-shopping-cart me-2"></i>Consumer Dashboard</h3>
+</div>
+
+<!-- Live Marketplace Section -->
+<h4 class="section-title">Discover Products</h4>
+<div class="row g-3 mb-4">
+    {% for item in marketplace_items %}
+    <div class="col-6 col-md-4">
+        <div class="card product-card">
+            <img src="{{ url_for('static', filename='images/' + item.image) }}" class="card-img-top" alt="{{ item.title }}">
+            <div class="card-body">
+                <h6 class="card-title">{{ item.title }}</h6>
+                <p class="card-text">₹{{ "%.2f"|format(item.price) }}/kg</p>
+                <a href="#" class="btn btn-warning btn-sm">Buy Now</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h4 class="section-title">Health & Wellness Tools</h4>
+<div class="accordion" id="consumerAccordion">
+    <!-- AI Nutritionist -->
+    <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne"><i class="fas fa-heartbeat me-2 text-danger"></i><strong>AI Personalized Nutritionist</strong></button></h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#consumerAccordion"><div class="accordion-body ai-output">{{ nutrition_plan | safe }}</div></div>
+    </div>
+    <!-- Blockchain Product Passport -->
+    <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo"><i class="fas fa-shield-alt me-2 text-success"></i><strong>Blockchain Product Passport</strong></button></h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#consumerAccordion">
+            <div class="accordion-body blockchain-output"><strong>Trace Product Origin:</strong><p><code>{{ blockchain_tx.tx_hash }}</code></p><strong>Authenticity:</strong> <span class="badge bg-success">{{ blockchain_tx.status }}</span></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

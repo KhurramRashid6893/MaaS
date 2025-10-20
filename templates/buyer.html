@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="dashboard-title">
+    <h3><i class="fas fa-industry me-2"></i>Buyer Dashboard</h3>
+</div>
+
+<!-- Live Marketplace Section -->
+<h4 class="section-title">Live Marketplace</h4>
+<div class="row g-3 mb-4">
+    {% for item in marketplace_items %}
+    <div class="col-6 col-md-4">
+        <div class="card product-card">
+            <img src="{{ url_for('static', filename='images/' + item.image) }}" class="card-img-top" alt="{{ item.title }}">
+            <div class="card-body">
+                <h6 class="card-title">{{ item.title }}</h6>
+                <p class="card-text">Est. ₹{{ "%.2f"|format(item.price) }}/kg</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h4 class="section-title">Procurement Tools</h4>
+<div class="accordion" id="buyerAccordion">
+    <!-- AI Market Intelligence -->
+    <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne"><i class="fas fa-search-dollar me-2 text-primary"></i><strong>AI Market Intelligence</strong></button></h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#buyerAccordion"><div class="accordion-body ai-output">{{ market_intel | safe }}</div></div>
+    </div>
+    <!-- SHG/FPO Directory -->
+    <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo"><i class="fas fa-users me-2 text-success"></i><strong>SHG & FPO Directory</strong></button></h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#buyerAccordion">
+            <div class="accordion-body">
+                <ul class="list-group">
+                    {% for org in shg_fpo_directory %}
+                    <li class="list-group-item"><strong>{{ org.name }}</strong> ({{ org.location }}) - Specializes in {{ org.specialty }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Blockchain Supply Chain Verification -->
+    <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree"><i class="fas fa-cubes me-2 text-info"></i><strong>Blockchain Supply Chain Verification</strong></button></h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#buyerAccordion">
+            <div class="accordion-body blockchain-output"><strong>Verify Batch Transaction:</strong><p><code>{{ blockchain_tx.tx_hash }}</code></p><strong>Status:</strong> <span class="badge bg-success">{{ blockchain_tx.status }}</span></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

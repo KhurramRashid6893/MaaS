@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="dashboard-title d-flex justify-content-between align-items-center">
+    <h3><i class="fas fa-tractor me-2"></i>Farmer Dashboard</h3>
+    <a href="{{ url_for('manage_products') }}" class="btn btn-primary"><i class="fas fa-tasks me-2"></i>Manage My Products</a>
+</div>
+
+
+<!-- Live Marketplace Section -->
+<h4 class="section-title">Live Marketplace (All Listings)</h4>
+<div class="row g-3 mb-4">
+    {% for item in marketplace_items %}
+    <div class="col-6 col-md-4">
+        <div class="card product-card">
+            <img src="{{ url_for('static', filename='images/' + (item.image or 'millet_placeholder.jpg')) }}" class="card-img-top" alt="{{ item.title }}">
+            <div class="card-body">
+                <h6 class="card-title">{{ item.title }}</h6>
+                <p class="card-text">₹{{ "%.2f"|format(item.price) }}/kg</p>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>No products are currently listed in the marketplace.</p>
+    {% endfor %}
+</div>
+
+<h4 class="section-title">Advanced Tools</h4>
+<div class="accordion" id="farmerAccordion">
+    <!-- AI Advisor -->
+    <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne"><i class="fas fa-lightbulb me-2 text-warning"></i><strong>AI Personalized Advisor</strong></button></h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#farmerAccordion"><div class="accordion-body ai-output">{{ ai_advisor | safe }}</div></div>
+    </div>
+    <!-- AI Pest Detection -->
+    <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo"><i class="fas fa-bug me-2 text-danger"></i><strong>AI Pest Detection</strong></button></h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#farmerAccordion">
+            <div class="accordion-body">
+                <p>Upload an image of the affected plant for AI analysis.</p>
+                <input type="file" class="form-control mb-2" id="pest-image-upload">
+                <button class="btn btn-primary btn-sm" id="analyze-pest-btn">Analyze Image</button>
+                <div id="pest-analysis-result" class="mt-2 ai-output d-none"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Government Schemes -->
+    <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree"><i class="fas fa-landmark me-2 text-success"></i><strong>Government Schemes (Shree Anna)</strong></button></h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#farmerAccordion">
+            <div class="accordion-body">
+                <ul class="list-group">
+                    {% for scheme in govt_schemes %}
+                    <li class="list-group-item"><a href="{{ scheme.link }}">{{ scheme.name }}</a>: {{ scheme.description }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Blockchain Log -->
+    <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"><i class="fab fa-bitcoin me-2 text-primary"></i><strong>Blockchain Log</strong></button></h2>
+        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#farmerAccordion">
+            <div class="accordion-body blockchain-output"><strong>Last Transaction:</strong><p><code>{{ blockchain_tx.tx_hash }}</code></p><strong>Status:</strong> <span class="badge bg-success">{{ blockchain_tx.status }}</span></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
